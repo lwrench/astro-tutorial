@@ -1,7 +1,8 @@
 ---
 title: '常见函数实现'
 description: '常见函数实现'
-pubDate: 'Jul 09 2024'
+pubDate: 'Mar 03 2024'
+updatedDate: 'Jul 09 2024'
 heroImage: '/blog-placeholder-3.jpg'
 # finished: false
 ---
@@ -45,8 +46,42 @@ compose(middleware);
 
 ## promisify
 
-一般
+将函数回调形式转为promise形式，现有`loadImage`函数
 
 ```js
+const imageSrc = 'https://xxx';
 
+function loadImage(src, callback) {
+  const image = document.createElement('img');
+  image.src = src;
+  image.style = 'width: 200px;height: 200px';
+  image.onload = () => callback(null, image);
+  image.onerror = () => callback(new Error('加载失败'));
+  document.body.append(image);
+}
 ```
+
+通用promisify函数
+
+```js
+function promisify(original) {
+  function fn(...args) {
+    return new Promise((resolve, reject) => {
+      args.push(function (err, success) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(success);
+        }
+      });
+
+      // original.apply(this, args);
+      Reflect.apply(original, this, args);
+    });
+  }
+
+  return fn;
+}
+```
+
+## scheduler
