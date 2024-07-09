@@ -126,11 +126,11 @@ const jsx = function (type: ElementType, config: any) {
 
 `createRoot`函数作为 react 主流程的入口，会做一些准备工作，主要是创建FiberRootNode 和 HostRootFiber，它们之间的关系如下图所示：
 
-![image-20240604234423202](https://lckojwtlwqufsgh0.public.blob.vercel-storage.com/react/image-20240604234423202-DTeFoIeTAE29JR3yaDhkmVo3QN3BEm.png)
+![image-20240604234423202](/react/image-20240604234423202.png)
 
 创建完最初的两个对象后，会在 render 函数中会调用 `createUpdate`函数创建更新，并将更新 enqueue 到hostRootFiber的updateQueue中，此时这个update对象的action为ReactElement，它们之间的关系如下图所示：
 
-![image-20240604234657824](https://lckojwtlwqufsgh0.public.blob.vercel-storage.com/react/image-20240604234657824-GZCCONgscEzCxtR7BztwupmECgItkk.png)
+![image-20240604234657824](/react/image-20240604234657824.png)
 
 在创建更新并将更新enqueue到hostRootFiber的updateQueue之后，就需要消费update，此时会开启react的render阶段，进行react的首次更新。
 
