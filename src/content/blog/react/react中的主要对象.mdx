@@ -6,6 +6,8 @@ heroImage: '/blog-placeholder-5.jpg'
 # finished: false
 ---
 
+import { Image } from 'astro:assets';
+
 在介绍主流程之前，需要理解 react 中的几种数据结构 / 数据类型：
 
 - jsx
@@ -126,11 +128,13 @@ const jsx = function (type: ElementType, config: any) {
 
 `createRoot`函数作为 react 主流程的入口，会做一些准备工作，主要是创建FiberRootNode 和 HostRootFiber，它们之间的关系如下图所示：
 
-![image-20240604234423202](/react/image-20240604234423202.png)
+{/* ![Astro](https://g.qcodes.top/file/6fbf09762cf578644fd09.png) */}
+<Image src="https://g.qcodes.top/file/6fbf09762cf578644fd09.png" alt=""  inferSize />
 
 创建完最初的两个对象后，会在 render 函数中会调用 `createUpdate`函数创建更新，并将更新 enqueue 到hostRootFiber的updateQueue中，此时这个update对象的action为ReactElement，它们之间的关系如下图所示：
 
-![image-20240604234657824](/react/image-20240604234657824.png)
+{/* ![Astro](https://g.qcodes.top/file/db1f544c9a06aa13e6257.png) */}
+<Image src="https://g.qcodes.top/file/db1f544c9a06aa13e6257.png" alt="" inferSize />
 
 在创建更新并将更新enqueue到hostRootFiber的updateQueue之后，就需要消费update，此时会开启react的render阶段，进行react的首次更新。
 
